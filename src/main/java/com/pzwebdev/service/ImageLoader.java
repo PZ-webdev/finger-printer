@@ -11,6 +11,7 @@ import java.io.IOException;
 public class ImageLoader {
 
     private static final String IMAGES = "images";
+    private static final String OUTPUT = "output";
 
     public static BufferedImage loadImage(String filename) {
         try {
@@ -21,6 +22,15 @@ public class ImageLoader {
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public static void saveImage(BufferedImage image, String outputPath) {
+        try {
+            File outputImage = new File(OUTPUT + "/" + outputPath);
+            ImageIO.write(image, "png", outputImage);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
