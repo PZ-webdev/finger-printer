@@ -16,5 +16,5 @@
 *.ear
 *.iml
 
-/images/*
-/output/*
+/images/*.jpg
+/output/*.jpg
