@@ -13,4 +13,4 @@ and prints them out on the screen.
 
 **Software Requirements**
 
-- Java SDK 21
+- Java SDK 19
