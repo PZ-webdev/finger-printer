@@ -20,7 +20,6 @@ public class ImageLoader {
 
             return ImageIO.read(new File(imagePath));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -33,4 +32,5 @@ public class ImageLoader {
             System.out.println(e.getMessage());
         }
     }
+
 }
