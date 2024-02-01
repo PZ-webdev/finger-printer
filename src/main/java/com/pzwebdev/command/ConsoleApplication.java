@@ -8,11 +8,8 @@ import com.pzwebdev.service.ImageLoader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class ConsoleApplication implements CommandLineRunner {
@@ -24,15 +21,19 @@ public class ConsoleApplication implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws IOException {
-        BufferedImage image = ImageLoader.loadImage("wskazujacy lewy KJ.jpg");
+    public void run(String... args) {
+        BufferedImage image = ImageLoader.loadImage("finger1.jpg");
 
-        image = otsu.binarize(image);
-        image = medianFilter.filter(image, 3);
-        kmm.calculate(image);
-        image = crossingNumber.findMinutiae(image);
+        if (Objects.isNull(image)) {
+            System.err.println("Image not found!");
+        } else {
+            image = otsu.binarize(image);
+            image = medianFilter.filter(image, 3);
+            kmm.calculate(image);
+            image = crossingNumber.findMinutiae(image);
 
-        ImageLoader.saveImage(image, "test.png");
+            ImageLoader.saveImage(image, "finger_output.png");
+        }
     }
 
 }

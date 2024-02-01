@@ -1,3 +1,7 @@
 spring:
   application:
     name: "Finger Printer"
+
+logging:
+  level:
+    root: OFF

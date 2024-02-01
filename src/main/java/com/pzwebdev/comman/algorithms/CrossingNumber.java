@@ -23,12 +23,13 @@ public class CrossingNumber {
             for (int j = 0; j < height; j++) {
                 if (deepCopy.getRGB(i, j) == Color.BLACK.getRGB()) {
                     binArray[i][j] = 1;
-                } else binArray[i][j] = 0;
+                } else {
+                    binArray[i][j] = 0;
+                }
             }
         }
 
         for (int i = 1; i < width - 1; i++) {
-
             for (int j = 1; j < height - 1; j++) {
                 cn = 0;
                 if (binArray[i][j] == 1) {
@@ -56,29 +57,41 @@ public class CrossingNumber {
                 }
             }
         }
+
         removeFalseMinutiae(minutias, deepCopy);
         drawMinutiae(deepCopy, minutias);
+        printInformation(minutias);
+
         return deepCopy;
     }
 
+    private void printInformation(ArrayList<Minutia> minutias) {
+        int typeOne = (int) minutias.stream().filter(minutia -> minutia.getType() == 1).count();
+        int typeThree = (int) minutias.stream().filter(minutia -> minutia.getType() == 3).count();
+
+        System.out.println("Ilość minutii pierwszego typu: " + typeOne);
+        System.out.println("Ilość minutii trzeciego typu: " + typeThree);
+    }
+
     private void drawMinutiae(BufferedImage deepCopy, ArrayList<Minutia> minutias) {
-        for (Minutia m : minutias) {
+        minutias.forEach(m -> {
             if (m.getType() == 1) {
                 drawRactangle(m.getX(), m.getY(), deepCopy, Color.RED);
-
             }
 
             if (m.getType() == 3) {
                 drawRactangle(m.getX(), m.getY(), deepCopy, Color.BLUE);
             }
-        }
+        });
     }
 
     public void removeFalseMinutiae(ArrayList<Minutia> minutias, BufferedImage deepCopy) {
         Iterator<Minutia> i = minutias.iterator();
 
         int[][] mask = new int[deepCopy.getWidth()][deepCopy.getHeight()];
+
         createMask(mask, deepCopy);
+
         while (i.hasNext()) {
             Minutia m = i.next();
             if (minutias.stream().anyMatch(e -> (Math.abs(e.getX() - m.getX()) < 6) && (Math.abs(e.getY() - m.getY()) < 6) && m != e)) {
@@ -86,14 +99,10 @@ public class CrossingNumber {
             } else if (mask[m.getX()][m.getY()] == 1) {
                 i.remove();
             }
-
         }
-
-
     }
 
     private void createMask(int[][] mask, BufferedImage image) {
-
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
                 if (image.getRGB(i, j) == Color.BLACK.getRGB()) {
@@ -133,13 +142,13 @@ public class CrossingNumber {
 
     private void drawRactangle(int x, int y, BufferedImage image, Color color) {
         int size = 2;
+
         if ((x - size > 0) && (y - size > 0) && y + size < image.getHeight() && x + size < image.getWidth()) {
             for (int i = -size; i <= size; i++) {
                 image.setRGB(x - i, y + size, color.getRGB());
                 image.setRGB(x + i, y - size, color.getRGB());
                 image.setRGB(x - size, y + i, color.getRGB());
                 image.setRGB(x + size, y - i, color.getRGB());
-
             }
         }
     }
@@ -148,6 +157,7 @@ public class CrossingNumber {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = bi.copyData(bi.getRaster().createCompatibleWritableRaster());
+
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 }
