@@ -1,9 +1,5 @@
 package com.pzwebdev.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 public class Minutia {
     int x;
     int y;

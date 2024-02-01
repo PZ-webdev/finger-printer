@@ -8,7 +8,7 @@ and prints them out on the screen.
 
 **Hardware Requirements**
 
-- InteliJ developer environment
+- IntelliJ developer environment
 - Or other ;)
 
 **Software Requirements**
