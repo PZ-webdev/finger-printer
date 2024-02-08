@@ -66,11 +66,11 @@ public class CrossingNumber {
     }
 
     private void printInformation(ArrayList<Minutia> minutias) {
-        int typeOne = (int) minutias.stream().filter(minutia -> minutia.getType() == 1).count();
-        int typeThree = (int) minutias.stream().filter(minutia -> minutia.getType() == 3).count();
+        int typeOne = (int) minutias.stream().filter(minutia -> minutia.getType() == 3).count();
+        int typeThree = (int) minutias.stream().filter(minutia -> minutia.getType() == 1).count();
 
-        System.out.println("Ilość minutii pierwszego typu: " + typeOne);
-        System.out.println("Ilość minutii trzeciego typu: " + typeThree);
+        System.out.println("\u001B[34mIlość minutii pierwszego typu: " + typeOne);
+        System.out.println("\u001B[31mIlość minutii trzeciego typu: " + typeThree);
     }
 
     private void drawMinutiae(BufferedImage deepCopy, ArrayList<Minutia> minutias) {
